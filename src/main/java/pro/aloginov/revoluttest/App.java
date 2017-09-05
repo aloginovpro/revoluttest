@@ -10,6 +10,9 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 
 import java.util.EnumSet;
 
+import static javax.servlet.DispatcherType.ASYNC;
+import static javax.servlet.DispatcherType.REQUEST;
+
 public class App {
 
     public static void main(String[] args) throws Exception {
@@ -21,7 +24,7 @@ public class App {
         Server server = new Server(8088);
 
         ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
-        context.addFilter(GuiceFilter.class, "/*", EnumSet.<javax.servlet.DispatcherType>of(javax.servlet.DispatcherType.REQUEST, javax.servlet.DispatcherType.ASYNC));
+        context.addFilter(GuiceFilter.class, "/*", EnumSet.of(REQUEST, ASYNC));
         context.addServlet(DefaultServlet.class, "/*");
 
         ErrorHandler errorHandler = new ErrorHandler();

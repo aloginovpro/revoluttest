@@ -29,6 +29,9 @@ public class TransferService {
         if (fromId == toId) {
             throw new TransferException("Source and destination accounts coincide");
         }
+        if (value <= 0) {
+            throw new TransferException(("Value should be positive"));
+        }
         Account from = accountService.getAccount(fromId);
         Account to = accountService.getAccount(toId);
         Currency currency = currencyService.getCurrency(currencyName);
